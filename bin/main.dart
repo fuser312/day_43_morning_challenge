@@ -19,5 +19,44 @@
 /// Input : 49927398716
 /// Output: 49927398716 passes the test
 
+bool validateCreditCard(int number){
+  List <int> oddList = [];
+  List <int> evenList = [];
+
+  List <String> listOfNumbers = number.toString().split("");
+  List <String>reverseListOfNumbers = listOfNumbers.reversed.toList();
+ 
+ 
+  for(int i = 0; i < reverseListOfNumbers.length; i++){
+    int parse = int.parse(reverseListOfNumbers[i]);
+    int doubleParse = parse * 2;
+    if(i%2 == 0){
+      
+     oddList.add(parse);
+    }
+    else if(doubleParse> 9){
+      evenList.add(sumOfDigits(doubleParse));
+    }
+    else{
+      evenList.add(doubleParse);
+    }
+    
+  }
+
+  int sum1 = oddList.reduce((a,b)=> a+b);
+  int sum2 = evenList.reduce((a,b)=> a + b);
+  return (sum1 + sum2) % 10 == 0;
+}
+
+int sumOfDigits(int integer){
+ List <String> numberList = integer.toString().split("").toList();
+ int sum = 0;
+ for (int i = 0; i < numberList.length; i++){
+   sum = sum+int.parse(numberList[i]);
+ }
+ return sum;
+}
+
 main() {
+  validateCreditCard(49927398716);
 }
